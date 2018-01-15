@@ -1,59 +1,25 @@
-const Authors = require('./data/authors');
-const Posts = require('./data/posts');
+import { GraphQLObjectType, GraphQLSchema } from 'graphql';
+import SportQueries from './models/sport/sport.queries';
+import SportMutations from './models/sport/sport.mutations';
 
-let {
-  GraphQLString,
-  GraphQLList,
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLSchema
-} = require('graphql');
-
-const AuthorType = new GraphQLObjectType({
-  name: 'Author',
-  description: 'This represents an author',
+const RootQuery = new GraphQLObjectType({
+  name: 'Query',
   fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLString) },
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    twitterHandle: { type: GraphQLString }
+    sport: SportQueries.sport,
+    sports: SportQueries.sports
   })
 });
 
-const PostType = new GraphQLObjectType({
-  name: 'Post',
-  description: 'This represents a post',
+const RootMutation = new GraphQLObjectType({
+  name: 'Mutation',
   fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLString) },
-    title: { type: new GraphQLNonNull(GraphQLString) },
-    body: { type: GraphQLString },
-    author: {
-      type: AuthorType,
-      resolve: (post) => {
-        return Authors.find((author) => author.id === post.author_id);
-      }
-    }
+    addSport: SportMutations.addSport
   })
 });
 
-const BlogQueryRootType = new GraphQLObjectType({
-  name: 'BlogAppSchema',
-  description: 'Blog Application Schema Query Root',
-  fields: () => ({
-    authors: {
-      type: new GraphQLList(AuthorType),
-      description: 'List of all Authors',
-      resolve: () => Authors
-    },
-    posts: {
-      type: new GraphQLList(PostType),
-      description: 'List of all Posts',
-      resolve: () => Posts
-    }
-  })
+const schema = new GraphQLSchema({
+  query: RootQuery,
+  mutation: RootMutation
 });
 
-const BlogAppSchema = new GraphQLSchema({
-  query: BlogQueryRootType
-});
-
-module.exports = BlogAppSchema;
+module.exports = schema;

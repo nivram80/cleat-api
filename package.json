@@ -11,6 +11,13 @@
   "dependencies": {
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
-    "graphql": "^0.12.3"
+    "graphql": "^0.12.3",
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   }
 }
