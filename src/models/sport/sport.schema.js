@@ -36,3 +36,11 @@ module.exports.getSports = () => {
     })
   });
 };
+
+module.exports.removeSport = (root, { id }) => {
+  return new Promise((resolve, reject) => {
+    Sport.findOneAndRemove({ id: id }).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+};

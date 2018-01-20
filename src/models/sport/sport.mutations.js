@@ -1,6 +1,6 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
 import SportType from './sport.type';
-import Sport from './sport.schema';
+import Sport, { removeSport } from './sport.schema';
 
 export default {
   addSport: {
@@ -20,5 +20,12 @@ export default {
         });
       });
     }
+  },
+  removeSport: {
+    type: SportType,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) }
+    },
+    resolve: removeSport
   }
 };

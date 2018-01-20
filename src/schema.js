@@ -13,7 +13,8 @@ const RootQuery = new GraphQLObjectType({
 const RootMutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    addSport: SportMutations.addSport
+    addSport: SportMutations.addSport,
+    removeSport: SportMutations.removeSport
   })
 });
 
