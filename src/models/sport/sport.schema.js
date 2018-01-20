@@ -11,7 +11,15 @@ SportSchema.set('toJSON', { getters: true });
 
 const Sport = mongoose.model('Sport', SportSchema, 'sports');
 
-export default Sport;
+module.exports.addSport = (root, { name }) => {
+  const newSport = new Sport({ name: name });
+
+  return new Promise((resolve, reject) => {
+    newSport.save((err, res) => {
+      err ? reject(err): resolve(res);
+    });
+  });
+};
 
 module.exports.getSport = (root, { id }) => {
   return new Promise((resolve, reject) => {
@@ -21,17 +29,17 @@ module.exports.getSport = (root, { id }) => {
   });
 };
 
-module.exports.updateSport = () => {
+module.exports.getSports = () => {
   return new Promise((resolve, reject) => {
-    Sport.save((err, res) => {
+    Sport.find({}).exec((err, res) => {
       err ? reject(err) : resolve(res);
     })
   });
 };
 
-module.exports.getSports = () => {
+module.exports.updateSport = (root, { id, name }) => {
   return new Promise((resolve, reject) => {
-    Sport.find({}).exec((err, res) => {
+    Sport.findOneAndUpdate({ id: id }, { name: name }).exec((err, res) => {
       err ? reject(err) : resolve(res);
     })
   });

@@ -14,6 +14,7 @@ const RootMutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     addSport: SportMutations.addSport,
+    updateSport: SportMutations.updateSport,
     removeSport: SportMutations.removeSport
   })
 });

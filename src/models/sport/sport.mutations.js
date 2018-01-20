@@ -1,6 +1,6 @@
 import { GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
 import SportType from './sport.type';
-import Sport, { removeSport } from './sport.schema';
+import { addSport, removeSport, updateSport } from './sport.schema';
 
 export default {
   addSport: {
@@ -11,15 +11,18 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, { name }) => {
-      const newSport = new Sport({ name: name });
-
-      return new Promise((resolve, reject) => {
-        newSport.save((err, res) => {
-          err ? reject(err): resolve(res);
-        });
-      });
-    }
+    resolve: addSport
+  },
+  updateSport: {
+    type: SportType,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID)},
+      name: {
+        name: 'name',
+        type: new GraphQLNonNull(GraphQLString)
+      }
+    },
+    resolve: updateSport
   },
   removeSport: {
     type: SportType,
