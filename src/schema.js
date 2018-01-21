@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import SportQueries from './models/sport/sport.queries';
 import SportMutations from './models/sport/sport.mutations';
+import TeamMutations from './models/team/team.mutations';
 
 const RootQuery = new GraphQLObjectType({
   name: 'Query',
@@ -15,7 +16,8 @@ const RootMutation = new GraphQLObjectType({
   fields: () => ({
     addSport: SportMutations.addSport,
     updateSport: SportMutations.updateSport,
-    removeSport: SportMutations.removeSport
+    removeSport: SportMutations.removeSport,
+    addTeam: TeamMutations.addTeam
   })
 });
 
