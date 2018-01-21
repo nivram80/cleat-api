@@ -17,7 +17,9 @@ const RootMutation = new GraphQLObjectType({
     addSport: SportMutations.addSport,
     updateSport: SportMutations.updateSport,
     removeSport: SportMutations.removeSport,
-    addTeam: TeamMutations.addTeam
+    addTeam: TeamMutations.addTeam,
+    updateTeam: TeamMutations.updateTeam,
+    removeTeam: TeamMutations.removeTeam
   })
 });
 

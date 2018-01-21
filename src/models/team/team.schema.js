@@ -24,3 +24,24 @@ module.exports.addTeam = (root, { city, mascot, sport }) => {
     });
   });
 };
+
+module.exports.updateTeam = (root, { id, city, mascot, sport }) => {
+  const data = {
+    city: city,
+    mascot: mascot,
+    sport: sport
+  };
+  return new Promise((resolve, reject) => {
+    Team.findOneAndUpdate({ id: id }, data).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+};
+
+module.exports.removeTeam = (root, { id }) => {
+  return new Promise((resolve, reject) => {
+    Team.findOneAndRemove({ id: id }).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+};
