@@ -26,13 +26,7 @@ module.exports.getTeam = (root, { id }) => {
   return get(Team, id);
 };
 
-module.exports.getTeams = () => {
-  return new Promise((resolve, reject) => {
-    Team.find({}).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
-};
+module.exports.getTeams = () => get(Team);
 
 module.exports.updateTeam = (root, { id, city, mascot, sport }) => {
   const data = {

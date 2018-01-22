@@ -8,8 +8,16 @@ export function add(object) {
 
 export function get(Item, id) {
   return new Promise((resolve, reject) => {
-    Item.findOne({ id: id }).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
+
+    if (id) {
+      Item.findOne({ id: id }).exec((err, res) => {
+        err ? reject(err) : resolve(res);
+      })
+    } else {
+      Item.find({}).exec((err, res) => {
+        err ? reject(err) : resolve(res);
+      })
+    }
+
   });
 }

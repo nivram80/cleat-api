@@ -21,13 +21,7 @@ module.exports.getSport = (root, { id }) => {
   return get(Sport, id);
 };
 
-module.exports.getSports = () => {
-  return new Promise((resolve, reject) => {
-    Sport.find({}).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
-};
+module.exports.getSports = () => get(Sport);
 
 module.exports.updateSport = (root, { id, name }) => {
   return new Promise((resolve, reject) => {
