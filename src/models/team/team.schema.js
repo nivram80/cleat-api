@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { add } from '../../schema-functions';
 
 const TeamSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true, default: mongoose.Types.ObjectId },
@@ -18,10 +19,22 @@ module.exports.addTeam = (root, { city, mascot, sport }) => {
     sport: sport
   });
 
+  return add(newTeam);
+};
+
+module.exports.getTeam = (root, { id }) => {
   return new Promise((resolve, reject) => {
-    newTeam.save((err, res) => {
-      err ? reject(err): resolve(res);
-    });
+    Team.findOne({ id: id }).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+};
+
+module.exports.getTeams = () => {
+  return new Promise((resolve, reject) => {
+    Team.find({}).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
   });
 };
 

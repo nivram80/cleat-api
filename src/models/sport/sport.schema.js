@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { add } from '../../schema-functions';
 
 mongoose.Promise = require('bluebird');
 
@@ -13,12 +14,7 @@ const Sport = mongoose.model('Sport', SportSchema, 'sports');
 
 module.exports.addSport = (root, { name }) => {
   const newSport = new Sport({ name: name });
-
-  return new Promise((resolve, reject) => {
-    newSport.save((err, res) => {
-      err ? reject(err): resolve(res);
-    });
-  });
+  return add(newSport);
 };
 
 module.exports.getSport = (root, { id }) => {

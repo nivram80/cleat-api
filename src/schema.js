@@ -1,13 +1,16 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import SportQueries from './models/sport/sport.queries';
 import SportMutations from './models/sport/sport.mutations';
+import TeamQueries from './models/team/team.queries';
 import TeamMutations from './models/team/team.mutations';
 
 const RootQuery = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     sport: SportQueries.sport,
-    sports: SportQueries.sports
+    sports: SportQueries.sports,
+    team: TeamQueries.team,
+    teams: TeamQueries.teams
   })
 });
 
