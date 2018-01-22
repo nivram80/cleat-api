@@ -21,3 +21,11 @@ export function get(Item, id) {
 
   });
 }
+
+export function remove(Item, id) {
+  return new Promise((resolve, reject) => {
+    Item.findOneAndRemove({ id: id }).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+}

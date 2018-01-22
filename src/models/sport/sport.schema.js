@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { add, get } from '../../schema-functions';
+import { add, get, remove } from '../../schema-helpers';
 
 mongoose.Promise = require('bluebird');
 
@@ -17,9 +17,7 @@ module.exports.addSport = (root, { name }) => {
   return add(newSport);
 };
 
-module.exports.getSport = (root, { id }) => {
-  return get(Sport, id);
-};
+module.exports.getSport = (root, { id }) => get(Sport, id);
 
 module.exports.getSports = () => get(Sport);
 
@@ -31,10 +29,4 @@ module.exports.updateSport = (root, { id, name }) => {
   });
 };
 
-module.exports.removeSport = (root, { id }) => {
-  return new Promise((resolve, reject) => {
-    Sport.findOneAndRemove({ id: id }).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
-};
+module.exports.removeSport = (root, { id }) => remove(Sport, id);
