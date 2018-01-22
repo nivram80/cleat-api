@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { add } from '../../schema-functions';
+import { add, get } from '../../schema-functions';
 
 mongoose.Promise = require('bluebird');
 
@@ -18,11 +18,7 @@ module.exports.addSport = (root, { name }) => {
 };
 
 module.exports.getSport = (root, { id }) => {
-  return new Promise((resolve, reject) => {
-    Sport.findOne({ id: id }).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
+  return get(Sport, id);
 };
 
 module.exports.getSports = () => {
