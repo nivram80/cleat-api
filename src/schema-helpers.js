@@ -22,6 +22,14 @@ export function get(Item, id) {
   });
 }
 
+export function update(Item, id, data) {
+  return new Promise((resolve, reject) => {
+    Item.findOneAndUpdate({ id: id }, data).exec((err, res) => {
+      err ? reject(err) : resolve(res);
+    })
+  });
+}
+
 export function remove(Item, id) {
   return new Promise((resolve, reject) => {
     Item.findOneAndRemove({ id: id }).exec((err, res) => {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { add, get, remove } from '../../schema-helpers';
+import { add, get, remove, update } from '../../schema-helpers';
 
 const TeamSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true, default: mongoose.Types.ObjectId },
@@ -32,11 +32,8 @@ module.exports.updateTeam = (root, { id, city, mascot, sport }) => {
     mascot: mascot,
     sport: sport
   };
-  return new Promise((resolve, reject) => {
-    Team.findOneAndUpdate({ id: id }, data).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
+
+  return update(Team, id, data);
 };
 
 module.exports.removeTeam = (root, { id }) => remove(Team, id);

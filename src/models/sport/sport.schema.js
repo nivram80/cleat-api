@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { add, get, remove } from '../../schema-helpers';
+import { add, get, remove, update } from '../../schema-helpers';
 
 mongoose.Promise = require('bluebird');
 
@@ -22,11 +22,8 @@ module.exports.getSport = (root, { id }) => get(Sport, id);
 module.exports.getSports = () => get(Sport);
 
 module.exports.updateSport = (root, { id, name }) => {
-  return new Promise((resolve, reject) => {
-    Sport.findOneAndUpdate({ id: id }, { name: name }).exec((err, res) => {
-      err ? reject(err) : resolve(res);
-    })
-  });
+  const updatedSport = { name: name };
+  return update(Sport, id, updatedSport);
 };
 
 module.exports.removeSport = (root, { id }) => remove(Sport, id);
